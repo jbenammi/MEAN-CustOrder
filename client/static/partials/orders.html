@@ -1,0 +1,52 @@
+<div class="row selction" ng-controller='ordersController as ordCon'>
+	<div class="col s4">
+		<h5><u>Add a new order</u></h5>
+		<form name="orderForm">
+			<label>Customer Name</label>
+			<select ng-model='ordCon.newOrder.customer'>
+				<option ng-repeat='customer in ordCon.customers' value="{{customer._id}}">{{customer.name}}</option>
+			</select>
+			<div>
+			<label>Order</label>
+			</div>
+			<div class="col s4">
+			<input type="number" ng-model='ordCon.newOrder.qty' />
+			</div>
+			<div class="col s8">
+			<label> </label>
+			<select ng-model='ordCon.newOrder.product'>
+				<option value="Nike Shoes">Nike Shoes</option>
+				<option value="Black Belts">Black Belts</option>
+				<option value="Ice Cream Cones">Ice Cream Cones</option>
+				<option value="Candies">Candies</option>
+			</select>
+			</div>
+			<div class="col s12">
+			<button class="btn waves-effect waves-light right" ng-click='ordCon.create(customer._id)'>Order</button>
+			</div>
+		</form>
+	</div>
+		<div class="section"></div>
+		<div class="col s2 offset-s10">
+		<input type="text" ng-model='filter_name' placeholder="Filter by Customer" />
+		</div>
+		<table class="striped">
+			<thead>
+				<tr>
+					<th>Customer Name</th>
+					<th>Product</th>
+					<th>Quantity</th>
+					<th>Date</th>					
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat='order in ordCon.orders | filter: filter_name | orderBy: "createdAt"'>
+					<td ng-bind='order.customer'></td>
+					<td ng-bind='order.product'></td>
+					<td ng-bind='order.qty'></td>				
+					<td ng-bind='order.createdAt | date:"mediumDate"'></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>	
+</div>
